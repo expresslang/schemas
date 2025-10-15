@@ -1,9 +1,12 @@
 title: EXPRESS Language Foundation Schemas
 description: Official EXPRESS Language Foundation schemas site
-theme: jekyll-theme-cayman
+baseurl: /schemas
+url: https://expresslang.github.io
+remote_theme: pages-themes/cayman@v0.2.0
 
 plugins:
   - jekyll-asciidoc
+  - jekyll-remote-theme
 
 asciidoc: {}
 
