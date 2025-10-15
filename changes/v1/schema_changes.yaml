@@ -1,0 +1,83 @@
+$schema: http://json-schema.org/draft-07/schema#
+title: EXPRESS Schema Changes
+description: Records modifications to EXPRESS schema structure across editions
+type: object
+required:
+  - schema
+  - editions
+properties:
+  schema:
+    type: string
+    description: Name of the EXPRESS schema
+  editions:
+    type: array
+    description: Array of edition changes
+    items:
+      $ref: '#/definitions/edition_change'
+definitions:
+  edition_change:
+    type: object
+    description: Changes made to the schema in a specific edition
+    required:
+      - version
+    properties:
+      version:
+        type: string
+        description: Version number for this change edition
+        pattern: '^[1-9][0-9]*$'
+      description:
+        type: string
+        description: >-
+          Multi-line string describing the changes made in this edition.
+          Provides comprehensive overview of what changed and why.
+      additions:
+        type: array
+        description: Array of added elements
+        items:
+          $ref: '#/definitions/item_change'
+      modifications:
+        type: array
+        description: Array of modified elements
+        items:
+          $ref: '#/definitions/item_change'
+      removals:
+        type: array
+        description: Array of removed elements
+        items:
+          $ref: '#/definitions/item_change'
+  item_change:
+    type: object
+    description: Represents a specific schema element change
+    required:
+      - type
+      - name
+    properties:
+      type:
+        type: string
+        description: Type of the EXPRESS construct
+        enum:
+          - ENTITY
+          - TYPE
+          - FUNCTION
+          - RULE
+          - PROCEDURE
+          - CONSTANT
+          - REFERENCE_FROM
+          - USE_FROM
+      name:
+        type: string
+        description: Name of the EXPRESS construct
+      description:
+        type: array
+        description: >-
+          Array of strings describing the change. Each string represents
+          a description for a single change in the named target.
+        items:
+          type: string
+      interfaced_items:
+        type: array
+        description: >-
+          For USE_FROM or REFERENCE_FROM, list of specific items referenced
+          or used. Not needed when in deletions.
+        items:
+          type: string
