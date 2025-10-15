@@ -1,0 +1,14 @@
+title: EXPRESS Language Foundation Schemas
+description: Official EXPRESS Language Foundation schemas site
+theme: jekyll-theme-cayman
+
+plugins:
+  - jekyll-asciidoc
+
+asciidoc: {}
+
+asciidoctor:
+  attributes:
+    - idseparator=_
+    - source-highlighter=rouge
+    - icons=font
