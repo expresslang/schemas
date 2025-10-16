@@ -41,9 +41,9 @@ definitions:
         description: Array of modified elements
         items:
           $ref: '#/definitions/item_change'
-      removals:
+      deletions:
         type: array
-        description: Array of removed elements
+        description: Array of deleted elements
         items:
           $ref: '#/definitions/item_change'
   item_change:
