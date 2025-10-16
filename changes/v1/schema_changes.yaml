@@ -1,35 +1,35 @@
 $schema: http://json-schema.org/draft-07/schema#
 title: EXPRESS Schema Changes
-description: Records modifications to EXPRESS schema structure across editions
+description: Records modifications to EXPRESS schema structure across versions
 type: object
 required:
   - schema
+  - versions
 additionalProperties: false
 properties:
   schema:
     type: string
     description: Name of the EXPRESS schema
-  editions:
+  versions:
     type: array
-    description: Array of edition changes
+    description: Array of version changes
     items:
-      $ref: '#/definitions/edition_change'
+      $ref: '#/definitions/version_change'
 definitions:
-  edition_change:
+  version_change:
     type: object
-    description: Changes made to the schema in a specific edition
+    description: Changes made to the schema in a specific version
     required:
       - version
     additionalProperties: false
     properties:
       version:
-        type: string
-        description: Version number for this change edition
-        pattern: '^[1-9][0-9]*$'
+        type: integer
+        description: Version number for this change version
       description:
         type: string
         description: >-
-          Multi-line string describing the changes made in this edition.
+          Multi-line string describing the changes made in this version.
           Provides comprehensive overview of what changed and why.
       additions:
         type: array

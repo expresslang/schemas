@@ -12,9 +12,9 @@ and specifications.
 Schema definitions for EXPRESS changes tracking:
 
 * link:changes/v1/schema_changes.yaml[Schema Changes v1] - Records modifications
-  to EXPRESS schema structure across editions
+  to EXPRESS schema structure across versions
 * link:changes/v1/mapping_changes.yaml[Mapping Changes v1] - Records
-  modifications to EXPRESS schema mappings across editions
+  modifications to EXPRESS schema mappings across versions
 
 == Usage
 
