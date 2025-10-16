@@ -1,13 +1,16 @@
-= EXPRESS Language Foundation Schemas
+= EXPRESS Language Foundation schemas
 
 This is the official EXPRESS Language Foundation schemas site.
 
-This repository contains formal schema definitions for EXPRESS-related formats
-and specifications.
+This repository contains formal schema definitions for ELF-published formats and
+specifications.
 
 == Schemas
 
 === Manifest
+
+The EXPRESS schema manifest is defined in
+https://www.expresslang.org/docs/documents/express-schema-manifest/document.html[ELF 5004].
 
 Schema definitions for EXPRESS schema manifest:
 
@@ -16,14 +19,20 @@ Schema definitions for EXPRESS schema manifest:
 
 === Changes
 
+The EXPRESS changes file is defined in
+https://www.expresslang.org/docs/documents/express-changes/document.html[ELF 5005].
+
 Schema definitions for EXPRESS changes tracking:
 
 * link:changes/v1/schema_changes.yaml[Schema Changes v1] - Records modifications
   to EXPRESS schema structure across versions
+
 * link:changes/v1/mapping_changes.yaml[Mapping Changes v1] - Records
   modifications to EXPRESS schema mappings across versions
 
 == Usage
+
+=== General
 
 These schemas are defined using JSON Schema (draft-07) and can be used to:
 
@@ -31,6 +40,98 @@ These schemas are defined using JSON Schema (draft-07) and can be used to:
 * Generate documentation
 * Build tooling for working with EXPRESS change records
 * Ensure consistency across EXPRESS change specifications
+
+Depending on the editor or tool you are using, the schemas can be referenced
+directly via their URLs.
+
+=== YAML editor integration
+
+The `yaml-language-server` comment line can be configured to use these schemas
+for YAML files.
+
+This syntax was originally defined by RedHat for YAML schema validation, and has
+been adopted by Visual Studio Code and other editors that support the Language
+Server Protocol.
+
+This schema can be used for validation by prefixing an EXPRESS Changes YAML
+file with the following comment line.
+
+Syntax:
+
+[source,yaml]
+----
+# yaml-language-server: $schema=https://www.expresslang.org/schemas/{schema_path}
+----
+
+Where,
+
+`{schema_path}`:: is the path to the schema file relative to the root of this
+repository.
+
+[example]
+====
+[source,yaml]
+----
+# yaml-language-server: $schema=https://www.expresslang.org/schemas/changes/v1/schema_changes.yaml
+----
+====
+
+=== `$schema` property
+
+The YAML root `$schema` property can be included directly in the YAML file to
+specify the schema to be used for validation.
+
+While semantically correct, this approach is unfortunately not as widely
+supported by editors and tools as the comment line method.
+
+
+=== Programmatic validation
+
+These schemas can be used for programmatic validation of EXPRESS Changes YAML
+files using any JSON Schema validation library that supports draft-07.
+
+In Ruby, the `json-schema` gem can be used as follows:
+
+[source,ruby]
+----
+require 'yaml'
+require 'json-schema'
+
+schema = YAML.load_file('path/to/schema_changes.yaml')
+data = YAML.load_file('path/to/changes.yaml')
+JSON::Validator.validate!(schema, data)
+----
+
+In Python, the `jsonschema` package can be used as follows:
+
+[source,python]
+----
+import yaml
+import jsonschema
+
+with open('path/to/schema_changes.yaml') as schema_file:
+    schema = yaml.safe_load(schema_file)
+
+with open('path/to/changes.yaml') as data_file:
+    data = yaml.safe_load(data_file)
+
+jsonschema.validate(instance=data, schema=schema)
+----
+
+In JavaScript, the `ajv` package can be used as follows:
+
+[source,javascript]
+----
+const fs = require('fs');
+const Ajv = require('ajv');
+
+const ajv = new Ajv();
+const schema = JSON.parse(fs.readFileSync('path/to/schema_changes.json'));
+const data = JSON.parse(fs.readFileSync('path/to/changes.json'));
+
+ajv.validate(schema, data);
+----
+
 
 == Contributing
 
