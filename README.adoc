@@ -53,8 +53,8 @@ This syntax was originally defined by RedHat for YAML schema validation, and has
 been adopted by Visual Studio Code and other editors that support the Language
 Server Protocol.
 
-This schema can be used for validation by prefixing an EXPRESS Changes YAML
-file with the following comment line.
+This schema can be used for validation by inserting the following comment line
+at the beginning of the YAML file.
 
 Syntax:
 
