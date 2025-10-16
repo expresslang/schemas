@@ -7,6 +7,13 @@ and specifications.
 
 == Schemas
 
+=== Manifest
+
+Schema definitions for EXPRESS schema manifest:
+
+* link:manifest/v1/schema_manifest.yaml[Schema Manifest v1] - Defines structure
+  for listing EXPRESS schemas and their locations
+
 === Changes
 
 Schema definitions for EXPRESS changes tracking:
