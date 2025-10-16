@@ -66,6 +66,7 @@ definitions:
           - CONSTANT
           - REFERENCE_FROM
           - USE_FROM
+          - SUBTYPE_CONSTRAINT
       name:
         type: string
         description: Name of the EXPRESS construct
