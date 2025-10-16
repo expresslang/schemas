@@ -4,7 +4,7 @@ description: Records modifications to EXPRESS schema structure across editions
 type: object
 required:
   - schema
-  - editions
+additionalProperties: false
 properties:
   schema:
     type: string
@@ -20,6 +20,7 @@ definitions:
     description: Changes made to the schema in a specific edition
     required:
       - version
+    additionalProperties: false
     properties:
       version:
         type: string
@@ -48,6 +49,7 @@ definitions:
   item_change:
     type: object
     description: Represents a specific schema element change
+    additionalProperties: false
     required:
       - type
       - name

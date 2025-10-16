@@ -4,7 +4,7 @@ description: Records modifications to EXPRESS schema mappings across editions
 type: object
 required:
   - schema
-  - editions
+additionalProperties: false
 properties:
   schema:
     type: string
@@ -20,6 +20,7 @@ definitions:
     description: Changes made to the mapping specification in a specific edition
     required:
       - version
+    additionalProperties: false
     properties:
       version:
         type: string
@@ -38,6 +39,7 @@ definitions:
   mapping_change:
     type: object
     description: Represents a specific element whose mapping has changed
+    additionalProperties: false
     properties:
       name:
         type: string
