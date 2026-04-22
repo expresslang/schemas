@@ -16,6 +16,11 @@ properties:
     description: Subtype constraint declarations
     items:
       $ref: '#/definitions/subtype_constraint'
+anyOf:
+  - required:
+      - ae
+  - required:
+      - sc
 additionalProperties: false
 definitions:
   entity_mapping:
