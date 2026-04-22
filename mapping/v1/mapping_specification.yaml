@@ -1,0 +1,211 @@
+$schema: http://json-schema.org/draft-07/schema#
+title: EXPRESS Mapping Specification
+description: >-
+  Defines the structure of EXPRESS mapping specification YAML files
+  (mapping.yaml) per ELF 5006 Annex B. Each file describes how ARM
+  entities and attributes map to MIM entities through reference paths.
+type: object
+properties:
+  ae:
+    type: array
+    description: Application element mappings
+    items:
+      $ref: '#/definitions/entity_mapping'
+  sc:
+    type: array
+    description: Subtype constraint declarations
+    items:
+      $ref: '#/definitions/subtype_constraint'
+additionalProperties: false
+definitions:
+  entity_mapping:
+    type: object
+    description: Mapping of an ARM entity to MIM elements
+    required:
+      - entity
+    additionalProperties: false
+    properties:
+      entity:
+        type: string
+        description: >-
+          ARM entity being mapped. Shall be an EXPRESS link
+          (<<express:Schema_arm.Entity,Entity>>) or a plain entity name.
+      aimelt:
+        type: string
+        description: >-
+          Corresponding MIM element. An EXPRESS link for entity references,
+          or a plain string for keywords (PATH, IDENTICAL MAPPING,
+          NO MAPPING EXTENSION PROVIDED), template constructs
+          (/SUPERTYPE/, /SUBTYPE/, /MAPPING_OF/), or dotted attribute paths.
+      extensible:
+        type: string
+        enum:
+          - "YES"
+          - "NO"
+        description: Whether the entity mapping is extensible
+      original_module:
+        type: string
+        description: >-
+          Module from which this mapping originates, for inherited mappings
+          in modules that extend SELECT types.
+      refpath:
+        $ref: '#/definitions/refpath'
+      aa:
+        type: array
+        description: Attribute assertion mappings
+        items:
+          $ref: '#/definitions/attribute_mapping'
+      alt_map:
+        type: array
+        description: Alternative mappings for this entity
+        items:
+          $ref: '#/definitions/alternative_mapping'
+      rules:
+        $ref: '#/definitions/rules'
+      description:
+        $ref: '#/definitions/rich_text'
+  attribute_mapping:
+    type: object
+    description: Mapping of an ARM attribute to MIM elements
+    required:
+      - attribute
+    additionalProperties: false
+    properties:
+      attribute:
+        type: string
+        description: ARM attribute name
+      assertion_to:
+        type: string
+        description: >-
+          Target entity or type for this attribute assertion. Shall be an
+          EXPRESS link (<<express:Schema_arm.Entity,Entity>>), a plain
+          entity name, or "*" for any type.
+      aimelt:
+        type: string
+        description: >-
+          MIM element at attribute level. A plain string for dotted
+          attribute paths (entity.attribute) or keywords (PATH,
+          IDENTICAL MAPPING).
+      refpath:
+        $ref: '#/definitions/refpath'
+      refpath_extend:
+        $ref: '#/definitions/refpath_extend'
+      alt_map:
+        type: array
+        description: Alternative mappings at attribute level
+        items:
+          $ref: '#/definitions/attribute_alternative_mapping'
+      rules:
+        $ref: '#/definitions/rules'
+      description:
+        $ref: '#/definitions/rich_text'
+      inherited_from_entity:
+        type: string
+        description: Entity from which this attribute mapping is inherited
+      inherited_from_module:
+        type: string
+        description: Module from which this attribute mapping is inherited
+  refpath:
+    type: object
+    description: >-
+      Reference path specifying navigation between entities using the
+      EXPRESS mapping language defined in ELF 5006.
+    required:
+      - content
+    additionalProperties: false
+    properties:
+      content:
+        type: string
+        description: >-
+          Multi-line reference path expression. Lines are separated by
+          newline characters. Operators include subtype (<=), supertype
+          (=>), forward navigation (->), inverse navigation (<-),
+          constraint blocks ({}), and SELECT extension (*>/<*).
+  refpath_extend:
+    type: object
+    description: >-
+      Reference path extension for SELECT type extensions. Provides
+      additional mapping path content for entities whose attributes
+      reference an extended SELECT type.
+    additionalProperties: false
+    properties:
+      content:
+        type: string
+        description: Extension reference path content
+      extended_select:
+        type: string
+        description: Name of the SELECT type being extended
+  alternative_mapping:
+    type: object
+    description: Alternative mapping for an entity
+    additionalProperties: false
+    properties:
+      id:
+        type: string
+        description: Unique identifier for the alternative mapping
+      aimelt:
+        type: string
+      refpath:
+        $ref: '#/definitions/refpath'
+      rules:
+        $ref: '#/definitions/rules'
+      description:
+        $ref: '#/definitions/rich_text'
+  attribute_alternative_mapping:
+    type: object
+    description: Alternative mapping at attribute level
+    additionalProperties: false
+    properties:
+      id:
+        type: string
+      aimelt:
+        type: string
+      refpath:
+        $ref: '#/definitions/refpath'
+      refpath_extend:
+        $ref: '#/definitions/refpath_extend'
+      alt_map_inc:
+        type: string
+        description: Alternative mapping inclusion reference
+      rules:
+        $ref: '#/definitions/rules'
+      description:
+        $ref: '#/definitions/rich_text'
+  subtype_constraint:
+    type: object
+    description: Subtype constraint declaration
+    additionalProperties: false
+    properties:
+      constraint:
+        type: string
+        description: Constraint name
+      entity:
+        type: string
+        description: Entity to which the constraint applies
+      description:
+        $ref: '#/definitions/rich_text'
+      source:
+        type: object
+        description: >-
+          ISO source reference. Legacy field, to be removed when subtype
+          constraint entries are migrated to use EXPRESS links.
+        properties:
+          content:
+            type: string
+      rules:
+        $ref: '#/definitions/rules'
+  rules:
+    type: object
+    description: Rule specifications or constraint names
+    additionalProperties: false
+    properties:
+      content:
+        type: string
+  rich_text:
+    type: object
+    description: Rich text content with optional inline formatting
+    properties:
+      content:
+        type: string
+        description: Main text content
+    additionalProperties: true
