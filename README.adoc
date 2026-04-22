@@ -17,6 +17,17 @@ Schema definitions for EXPRESS schema manifest:
 * link:manifest/v1/schema_manifest.yaml[Schema Manifest v1] - Defines structure
   for listing EXPRESS schemas and their locations
 
+=== Mapping
+
+The EXPRESS mapping specification is defined in
+https://www.expresslang.org/docs/documents/express-mapping/document.html[ELF 5006].
+
+Schema definitions for EXPRESS mapping specifications:
+
+* link:mapping/v1/mapping_specification.yaml[Mapping Specification v1] -
+  Defines the structure of `mapping.yaml` files that describe ARM-to-MIM entity
+  mappings per ELF 5006 Annex B
+
 === Changes
 
 The EXPRESS changes file is defined in
