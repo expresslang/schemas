@@ -182,6 +182,9 @@ definitions:
   subtype_constraint:
     type: object
     description: Subtype constraint declaration
+    required:
+      - constraint
+      - entity
     additionalProperties: false
     properties:
       constraint:
@@ -197,6 +200,9 @@ definitions:
         description: >-
           ISO source reference. Legacy field, to be removed when subtype
           constraint entries are migrated to use EXPRESS links.
+        required:
+          - content
+        additionalProperties: false
         properties:
           content:
             type: string
