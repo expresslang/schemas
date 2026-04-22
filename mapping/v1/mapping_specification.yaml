@@ -132,6 +132,9 @@ definitions:
       Reference path extension for SELECT type extensions. Provides
       additional mapping path content for entities whose attributes
       reference an extended SELECT type.
+    required:
+      - content
+      - extended_select
     additionalProperties: false
     properties:
       content:
